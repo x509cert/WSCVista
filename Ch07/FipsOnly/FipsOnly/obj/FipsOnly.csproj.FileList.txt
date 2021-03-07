@@ -1,0 +1,5 @@
+obj\Debug\ResolveAssemblyReference.cache
+bin\Debug\FipsOnly.exe
+bin\Debug\FipsOnly.pdb
+obj\Debug\FipsOnly.exe
+obj\Debug\FipsOnly.pdb

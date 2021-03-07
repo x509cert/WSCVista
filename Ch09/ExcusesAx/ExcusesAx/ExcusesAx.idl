@@ -1,0 +1,51 @@
+// ExcusesAx.idl : type library source for ActiveX Control project.
+
+// This file will be processed by the MIDL compiler tool to
+// produce the type library (ExcusesAx.tlb) that will become a resource in
+// ExcusesAx.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(42C2C810-017D-4FF5-BFFE-E62FA0D0DBFE), version(1.0),
+  helpfile("ExcusesAx.hlp"),
+  helpstring("ExcusesAx ActiveX Control module"),
+  control ]
+library ExcusesAxLib
+{
+	importlib(STDOLE_TLB);
+
+	//  Primary dispatch interface for CExcusesAxCtrl
+
+	[ uuid(A8B105B4-1272-484D-B974-4108061D8E41),
+	  helpstring("Dispatch interface for ExcusesAx Control")]
+	dispinterface _DExcusesAx
+	{
+		properties:
+		methods:
+         [id(1), helpstring("method Excuse")] BSTR Excuse(void);
+   };
+
+	//  Event dispatch interface for CExcusesAxCtrl
+
+	[ uuid(51837D80-92C2-47DF-9885-56E2D0C662C7),
+	  helpstring("Event interface for ExcusesAx Control") ]
+	dispinterface _DExcusesAxEvents
+	{
+		properties:
+			//  Event interface has no properties
+
+		methods:
+	};
+
+	//  Class information for CExcusesAxCtrl
+
+	[ uuid(20B97D1A-2CC7-451E-9B6C-2C702F2B690F),
+	  helpstring("ExcusesAx Control"), control ]
+	coclass ExcusesAx
+	{
+		[default] dispinterface _DExcusesAx;
+		[default, source] dispinterface _DExcusesAxEvents;
+	};
+
+};

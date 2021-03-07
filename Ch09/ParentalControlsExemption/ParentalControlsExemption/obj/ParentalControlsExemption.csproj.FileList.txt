@@ -1,0 +1,5 @@
+bin\Debug\ParentalControlsExemption.exe
+bin\Debug\ParentalControlsExemption.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\ParentalControlsExemption.exe
+obj\Debug\ParentalControlsExemption.pdb

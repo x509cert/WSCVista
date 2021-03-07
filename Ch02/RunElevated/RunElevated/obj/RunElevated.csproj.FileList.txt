@@ -1,0 +1,10 @@
+bin\Debug\RunElevated.exe
+bin\Debug\RunElevated.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\RunElevated.exe
+obj\Debug\RunElevated.pdb
+bin\Debug\RunElevated.exe.manifest
+bin\Debug\RunElevated.application
+obj\Debug\RunElevated.TrustInfo.xml
+obj\Debug\RunElevated.exe.manifest
+obj\Debug\RunElevated.application

@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ElevationMoniker", "ElevationMoniker\ElevationMoniker.vcproj", "{74A5DE3E-3379-492B-A15B-F412F9EB66A0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{74A5DE3E-3379-492B-A15B-F412F9EB66A0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{74A5DE3E-3379-492B-A15B-F412F9EB66A0}.Debug|Win32.Build.0 = Debug|Win32
+		{74A5DE3E-3379-492B-A15B-F412F9EB66A0}.Release|Win32.ActiveCfg = Release|Win32
+		{74A5DE3E-3379-492B-A15B-F412F9EB66A0}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

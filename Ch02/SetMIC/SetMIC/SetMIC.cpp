@@ -66,7 +66,7 @@ int __cdecl wmain(int argc, WCHAR** argv) {
             throw GetLastError();
         }
 
-        TOKEN_ELEVATION_TYPE ElevationType;
+        TOKEN_ELEVATION_TYPE ElevationType = TokenElevationTypeDefault;
         DWORD cbSize = sizeof TOKEN_ELEVATION_TYPE;
         if (GetTokenInformation(hToken,
            TokenElevationType,

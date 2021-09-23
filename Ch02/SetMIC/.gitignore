@@ -1,0 +1,10 @@
+.vs
+*.dll
+*.exe
+*.pch
+*.obj
+*.map
+*.vcxproj
+*.filters
+*.user
+

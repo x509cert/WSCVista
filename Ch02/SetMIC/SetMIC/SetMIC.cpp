@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 void usage() {
-    wprintf(L"\n\nUsage: SetMIC exe [integritylevel]\n\n"
+    wprintf(L"\n\nUsage: SetMIC process [integritylevel]\n\n"
 			L"Launches a process at the given integrity level, "
 			L"where <integritylevel> can be:\n"
 			L"\tL - low integrity (default)\n"
@@ -12,7 +12,7 @@ void usage() {
 
 int __cdecl wmain(int argc, WCHAR** argv) {
     
-    if (argc != 3 && argc !=2) {
+    if ((argc != 3 && argc !=2) || argv == nullptr) {
 		usage();
         return -1;
     }
@@ -59,25 +59,28 @@ int __cdecl wmain(int argc, WCHAR** argv) {
                 TOKEN_ALL_ACCESS, 
                 &hToken)) {
 
-            wprintf(
-                L"OpenProcessToken failed (%d)\n", 
+            wprintf(L"OpenProcessToken failed (%u)\n", 
                 GetLastError());
 
             throw GetLastError();
         }
 
-        TOKEN_ELEVATION_TYPE ElevationType;
+        TOKEN_ELEVATION_TYPE ElevationType = TokenElevationTypeDefault;
         DWORD cbSize = sizeof TOKEN_ELEVATION_TYPE;
         if (GetTokenInformation(hToken,
            TokenElevationType,
            &ElevationType,
            sizeof(ElevationType),
-           &cbSize)) {
-               if (ElevationType == TokenElevationTypeFull) {
-                   throw ERROR_ACCESS_DENIED;
-               }
-        } else {
-            wprintf(L"GetTokenInformation failed (%d)\n", GetLastError());
+           &cbSize)) 
+        {
+            if (ElevationType == TokenElevationTypeFull) 
+            {
+                throw ERROR_ACCESS_DENIED;
+            }
+        } 
+        else 
+        {
+            wprintf(L"GetTokenInformation failed (%u)\n", GetLastError());
             throw GetLastError();
         }
 
@@ -90,7 +93,7 @@ int __cdecl wmain(int argc, WCHAR** argv) {
 			    &hNewToken)) {
 
             wprintf(
-                L"DuplicateTokenEx failed (%d)\n", 
+                L"DuplicateTokenEx failed (%u)\n", 
                 GetLastError());
 
             CloseHandle(hToken);
@@ -103,10 +106,8 @@ int __cdecl wmain(int argc, WCHAR** argv) {
                 wszIntegritySid,
 			    &pIntegritySid)) {
 
-            wprintf(
-                L"ConvertStringSidToSid failed (%d)\n", 
-                GetLastError()
-                );
+            wprintf(L"ConvertStringSidToSid failed (%u)\n", 
+                GetLastError());
 
             throw GetLastError();
         }
@@ -120,18 +121,18 @@ int __cdecl wmain(int argc, WCHAR** argv) {
                 &til,
 			    sizeof(TOKEN_MANDATORY_LABEL) + GetLengthSid(pIntegritySid))) {
 
-            wprintf(
-                L"SetTokenInformation failed (%d)\n", 
-                GetLastError()
-                );
+            wprintf(L"SetTokenInformation failed (%u)\n", 
+                GetLastError());
             
             throw GetLastError();
         }
 
         wchar_t wszTitle[200];
-        swprintf_s(wszTitle,_countof(wszTitle),L"%ls (%ls integrity)",wszProcessName,wszIntegrityLevelName);
+        swprintf_s(wszTitle,_countof(wszTitle)-1,L"%ls (%ls integrity)",
+            wszProcessName,
+            wszIntegrityLevelName);
 
-	     STARTUPINFO           StartupInfo = {0};
+	    STARTUPINFO           StartupInfo = {0};
         StartupInfo.cb        = sizeof(STARTUPINFO);
         StartupInfo.dwFlags   = STARTF_USEFILLATTRIBUTE;
         StartupInfo.lpTitle   = wszTitle;
@@ -144,12 +145,14 @@ int __cdecl wmain(int argc, WCHAR** argv) {
                 FALSE,
                 CREATE_NEW_CONSOLE,
                 NULL,NULL,
-                &StartupInfo,&ProcInfo)) {
+                &StartupInfo,&ProcInfo)) 
+        {
 
-            wprintf(L"CreateProcessAsUser failed (%d)\n", GetLastError());
+            wprintf(L"CreateProcessAsUser failed (%u)\n", GetLastError());
             throw GetLastError();
         }
-    } catch (DWORD dwErr) {
+    } catch (const DWORD dwErr) 
+    {
         err = dwErr;
     } 
 
